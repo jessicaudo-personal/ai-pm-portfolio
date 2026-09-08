@@ -49,6 +49,7 @@ while True:
             messages=[
                 {"role": "user", "content": prompt}
             ],
+            #messages = [ {"role": "user", "content": prompt}, {"role": "system", "content": "you are a senior product manager for a software company"} ], #allows you customize type of responses based on system's assumed role
             temperature=temperature,
             max_tokens=max_tokens
         )
