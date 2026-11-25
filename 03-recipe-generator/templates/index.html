@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f4ed">
+    <title>Weeknight Table | Recipe Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Weeknight Table home">
+        <span class="brand-mark" aria-hidden="true">W</span>
+        <span>weeknight table</span>
+      </a>
+      <span class="local-badge"><span aria-hidden="true"></span> Runs on this computer</span>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">A little inspiration for dinner</p>
+        <h1 id="page-title">Make something good<br>with what you have.</h1>
+        <p class="intro-copy">Tell us what's in your kitchen. We'll suggest recipes, note what you'll need to buy, and share nutrition estimates.</p>
+      </section>
+
+      <div class="workspace">
+        <section class="form-card" aria-labelledby="form-title">
+          <div class="card-heading">
+            <div>
+              <p class="eyebrow">Your kitchen</p>
+              <h2 id="form-title">What sounds good?</h2>
+            </div>
+            <span class="step-number" aria-hidden="true">01</span>
+          </div>
+
+          <form id="recipe-form">
+            <label for="ingredients">Ingredients you have <span class="required">Required</span></label>
+            <textarea id="ingredients" name="ingredients" rows="3" maxlength="500" required placeholder="e.g. chicken, potatoes, spinach, lemon"></textarea>
+            <p class="field-help">Separate items with commas. We'll avoid adding these to your shopping list.</p>
+
+            <div class="form-row">
+              <div>
+                <label for="recipe-count">How many ideas?</label>
+                <select id="recipe-count" name="recipe_count">
+                  {% for count in range(1, max_recipes + 1) %}
+                    <option value="{{ count }}" {% if count == 3 %}selected{% endif %}>{{ count }} {{ 'recipe' if count == 1 else 'recipes' }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div>
+                <label for="cuisine">Cuisine <span class="optional">Optional</span></label>
+                <input id="cuisine" name="cuisine" type="text" maxlength="100" placeholder="e.g. Thai">
+              </div>
+            </div>
+
+            <label for="dietary-filter">Dietary needs or preferences</label>
+            <input id="dietary-filter" name="dietary_filter" type="text" maxlength="500" required placeholder="e.g. vegetarian, plant-based, or no restrictions">
+            <p class="field-help">Use this for preferences. Enter food allergies separately below.</p>
+
+            <label for="allergies">Food allergies to avoid <span class="optional">Optional</span></label>
+            <input id="allergies" name="allergies" type="text" maxlength="500" placeholder="e.g. peanuts, shellfish, sesame">
+            <p class="field-help">List allergens separated by commas. The recipe generator will treat these as exclusions, but cannot guarantee a recipe is safe.</p>
+
+            <label for="time-constraint">Time or skill level</label>
+            <input id="time-constraint" name="time_constraint" type="text" maxlength="500" required placeholder="e.g. under 30 minutes, beginner-friendly">
+
+            <div class="cost-note">
+              <span class="info-icon" aria-hidden="true">i</span>
+              <p>Each generation or replacement uses the OpenAI API and may incur usage costs. A run includes recipes, a shopping list, nutrition estimates, and a constraint check.</p>
+            </div>
+
+            <button class="primary-button" id="submit-button" type="submit">
+              <span class="button-label">Find my recipes</span>
+              <span class="button-arrow" aria-hidden="true">→</span>
+            </button>
+          </form>
+        </section>
+
+        <section class="results-column" aria-live="polite" aria-busy="false">
+          <div id="status-message" class="status-message" role="status" hidden></div>
+          <div id="empty-state" class="empty-state">
+            <div class="empty-illustration" aria-hidden="true">
+              <span class="plate plate-one"></span>
+              <span class="plate plate-two"></span>
+              <span class="herb">✳</span>
+            </div>
+            <p class="eyebrow">Your next meal starts here</p>
+            <h2>Good food, less guesswork.</h2>
+            <p>Your recipes and shopping list will appear here after you tell us what's in your kitchen.</p>
+          </div>
+          <div id="results" hidden></div>
+          <button id="download-button" class="secondary-button" type="button" hidden>Download results <span aria-hidden="true">↓</span></button>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <p>Recipe ideas are AI-generated. Check ingredients and cooking temperatures for your needs.</p>
+      <p>Nutrition is an estimate, not medical advice.</p>
+    </footer>
+  </body>
+</html>
