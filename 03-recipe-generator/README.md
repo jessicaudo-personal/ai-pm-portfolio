@@ -12,6 +12,16 @@ A multi-turn AI tool that generates recipes from available ingredients, then bui
 
 ---
 
+## Web app preview
+
+![Recipe Generator web app showing the ingredient and allergy form with the recipe results area](./static/recipe-generator.png)
+
+### Example flow
+
+![Animated walkthrough showing the form, sample inputs, and two generated recipe cards](./static/recipe-generator-demo.gif)
+
+This walkthrough uses a mocked sample response to demonstrate the UI; it does not represent a live OpenAI generation.
+
 ## Why this project
 
 This project moves beyond a single-shot prompt into a genuine multi-turn conversation, and treats two real product problems as first-class design decisions rather than afterthoughts:
