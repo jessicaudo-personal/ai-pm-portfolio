@@ -6,7 +6,7 @@
 ![Python](https://img.shields.io/badge/python-3.14-blue)
 ![OpenAI](https://img.shields.io/badge/API-OpenAI-412991)
 
-A multi-turn AI tool that generates recipes from available ingredients, then builds a shopping list and nutrition summary from the same conversation — exploring context management and dynamic cost control.
+A multi-turn AI tool that generates recipes from available ingredients, then builds a shopping list and nutrition summary from the same conversation. Includes an evaluation harness to measure recipe quality, constraint handling, and safety — exploring context management, dynamic cost control, and responsible AI product iteration.
 
 </div>
 
@@ -14,17 +14,13 @@ A multi-turn AI tool that generates recipes from available ingredients, then bui
 
 ## Web app preview
 
-![Recipe Generator web app showing the ingredient and allergy form with the recipe results area](./static/recipe-generator.png)
-
-### Example flow
-
 ![Animated walkthrough showing the form, sample inputs, and two generated recipe cards](./static/recipe-generator-demo.gif)
 
 This walkthrough uses a mocked sample response to demonstrate the UI; it does not represent a live OpenAI generation.
 
 ## Why this project
 
-This project moves beyond a single-shot prompt into a genuine multi-turn conversation, and treats two real product problems as first-class design decisions rather than afterthoughts:
+This project moves beyond a single-shot prompt into a genuine multi-turn conversation, and explores how to evaluate AI product quality—not just build the experience. It treats real product problems as first-class design decisions and uses an eval harness to turn expectations around recipe usefulness, constraints, and safety into measurable checks:
 
 | Technical concept | Product framing |
 |---|---|
@@ -32,6 +28,7 @@ This project moves beyond a single-shot prompt into a genuine multi-turn convers
 | Dynamic `max_tokens` scaling | Token budget scales with `no_recipes` rather than a fixed guess — calibrated against real `usage` data instead of trial and error |
 | Constraint transparency | The model is explicitly instructed to flag when a recipe can't fully meet a time or cuisine constraint, rather than silently drifting or hallucinating a fit |
 | Nutrition framing | Nutrition output is explicitly scoped as general/informational, not personalized dietary advice |
+| Agent evaluations | Deterministic checks and an LLM judge assess generated recipes against product expectations, making gaps visible and future iterations comparable |
 
 ## What it does
 
@@ -76,6 +73,10 @@ python3 app-recipe.py --cli
 ```
 The web app binds to your own computer only. Each successful run is saved under `generated/` as JSON and Markdown, and you can also download the Markdown from the page.
 
+## Agent evaluations
+
+The recipe agent is evaluated against realistic ingredient, dietary, allergy, safety, and constraint scenarios using deterministic checks and an LLM judge. The harness records model and run metadata so results can be reviewed and compared across iterations. See the [evaluation README](./evals/README.md) for the methodology, setup, initial live results, and known limitations.
+
 ## Tech stack
 
 - Python 3.14
@@ -87,3 +88,5 @@ The web app binds to your own computer only. Each successful run is saved under 
 
 - Add unit tests for input validation and response formatting
 - Support swapping or substituting ingredients interactively
+- Add an explicit refusal/clarification path for non-food or unsafe inputs, and evaluate it with the existing decline scenario
+- Improve poultry food-safety guidance and add tests to ensure recipes include safe internal cooking temperatures

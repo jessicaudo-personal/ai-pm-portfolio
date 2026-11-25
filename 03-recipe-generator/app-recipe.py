@@ -20,6 +20,7 @@ from openai import (
 
 
 MODEL = "gpt-4o-mini"
+RECIPE_TEMPERATURE = 0.7
 MAX_RECIPES = 5
 BASE_DIR = Path(__file__).resolve().parent
 OUTPUT_DIR = BASE_DIR / "generated"
@@ -145,7 +146,7 @@ def parse_recipe_response(content: str, expected_count: int) -> dict:
 def generate_recipes(preferences: dict):
     messages = [{"role": "user", "content": recipe_prompt(preferences)}]
     max_tokens = max(1_000, preferences["recipe_count"] * 500)
-    response = create_completion(messages, max_tokens, 0.7)
+    response = create_completion(messages, max_tokens, RECIPE_TEMPERATURE)
     content = response.choices[0].message.content
     data = parse_recipe_response(content, preferences["recipe_count"])
 
