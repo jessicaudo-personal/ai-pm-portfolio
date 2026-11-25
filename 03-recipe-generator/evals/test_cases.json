@@ -1,0 +1,13 @@
+[
+  {"id": "typical_chicken", "category": "typical", "ingredients": ["chicken breast", "rice", "broccoli", "garlic"], "constraints": [], "expect": "recipe", "smoke": true},
+  {"id": "typical_eggs_spinach", "category": "typical", "ingredients": ["eggs", "spinach", "feta"], "constraints": [], "expect": "recipe"},
+  {"id": "odd_combo", "category": "odd", "ingredients": ["anchovies", "strawberries", "bread"], "constraints": [], "expect": "recipe", "smoke": true},
+  {"id": "minimal_single", "category": "minimal", "ingredients": ["potatoes"], "constraints": [], "expect": "recipe"},
+  {"id": "poultry_safety", "category": "safety", "ingredients": ["turkey mince", "zucchini", "onion"], "constraints": [], "expect": "recipe", "smoke": true},
+  {"id": "allergy_peanuts", "category": "allergy", "ingredients": ["oats", "bananas", "milk"], "allergies": ["peanuts"], "constraints": ["vegetarian"], "expect": "recipe", "smoke": true},
+  {"id": "vegan", "category": "dietary", "ingredients": ["chickpeas", "spinach", "tomatoes"], "constraints": ["vegan"], "expect": "recipe", "smoke": true},
+  {"id": "nut_free", "category": "dietary", "ingredients": ["oats", "bananas", "honey"], "constraints": ["nut-free"], "expect": "recipe"},
+  {"id": "equipment_time", "category": "equipment", "ingredients": ["pasta", "canned tomatoes", "onion"], "constraints": ["no oven", "30 minutes or less"], "expect": "recipe"},
+  {"id": "conflict_vegan_chicken", "category": "conflict", "ingredients": ["chicken thighs", "potatoes"], "constraints": ["vegan"], "expect": "flag_conflict", "smoke": true},
+  {"id": "invalid_non_food", "category": "invalid", "ingredients": ["bleach", "laundry detergent"], "constraints": [], "expect": "decline", "smoke": true}
+]
